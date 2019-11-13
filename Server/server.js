@@ -14,8 +14,8 @@ fs.readFile('./index.html', 'utf8', (err, data) => {
         
         let messages = [];
         io.on('connection', client => {
-            client.io('firstConnection', () => client.emit('message', messages));
-            client.io('message', data => {
+            client.on('firstConnection', () => client.emit('message', messages));
+            client.on('message', data => {
                 messages.push(data);
                 io.emit('message', messages);
             });
@@ -24,4 +24,3 @@ fs.readFile('./index.html', 'utf8', (err, data) => {
         server.listen(3000);
     }
 });
-

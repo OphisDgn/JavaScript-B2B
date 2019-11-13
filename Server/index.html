@@ -1,14 +1,49 @@
 <html>
 <head>
-    <title></title>
+    <title>Chat</title>
     <script src="/socket.io/socket.io.js"></script>
-    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; }
+        #messages li:nth-child(odd) { background: #eee; }
+      </style>
 </head>
 <body>
-
+    <ul id="messages">
+        <!-- zone du chat -->
+    </ul>
+    <form action="" id="formulaire">
+      <input id="m" autocomplete="off" type="text" placeholder="Votre message..." />
+      <button type="submit">Envoyer</button>
+    </form>
 </body>
 <script>
     const socket = io();
+    const mess = document.getElementById('messages');
+    const m = document.getElementById('m');
+    const form = document.getElementById('formulaire');
+
+    socket.on('message', function(data) {
+        insereMessage(data.mess)
+    });
+
+/*    form.submit(function() {
+        let messa = m.val();
+        socket.emit('message', messa);
+        insereMessage(messa);
+        messa.val('').focus();
+    });*/
+
+    function insereMessage(message) {
+
+        mess.innerHTML = '<li>' + m + '</li> <br />';
+    }
+
     socket.emit("firstConnection", "Hello Socket Server !");
 
     socket.on("message", data => console.log(data));
