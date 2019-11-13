@@ -40,8 +40,9 @@
     });*/
 
     function insereMessage(message) {
-
-        mess.innerHTML = '<li>' + m + '</li> <br />';
+        let messa = m.value;
+        console.log('message : ' + m);
+        mess.innerHTML = '<li>' + messa + '</li> <br />';
     }
 
     socket.emit("firstConnection", "Hello Socket Server !");
