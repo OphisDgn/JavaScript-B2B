@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title></title>
+    <script src="/socket.io/socket.io.js"></script>
+    
+</head>
+<body>
+
+</body>
+<script>
+    const socket = io();
+    socket.emit("firstConnection", "Hello Socket Server !");
+
+    socket.on("message", data => console.log(data));
+</script>
+</html>
