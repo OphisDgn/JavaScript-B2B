@@ -77,7 +77,7 @@ function principale (prenom) {
     // on passe à la suite de l'histoire
     let didas = "<p class=\"italique\">~~ Vous vous sentez tomber à travers les nuages vers la ville et lorsque vous voyez arriver le toit d'un batiment, vous fermez les yeux, attendant l'impact. Cependant rien ne se passe. Vous étiez arrivé dans le dit bâtiment et une jeune femme vous accoste ~~</p>";
     let image2 = "<img class=\"monImage\" src=\"images/salon.jpg\"/>";
-    let discours = "<p>- Oh bonjour ! Tu viens d'arriver c'est ça ? Cela se voit. Viens je vais t'expliquer un peu. Ici nous sommes à la Guilde, nous donnons des missions au jeune aventurier comme toi afin de les faire progresser et pour qu'il puisse accéder au plus loin niveau qu'il leur est possible. Oh je te vois venir. Tu ne peux pas partir en mission '' seul '', tu as besoin d'intégrer une Familia. Elles offrent des bonus spécifique, par exemple la Familia Hestia t'offre 20 points de vie supplémentaire. A toi de choisir ! </p>";
+    let discours = "<p>- Oh bonjour ! Tu viens d'arriver c'est ça ? Cela se voit. Viens je vais t'expliquer un peu. Ici nous sommes à la Guilde, nous donnons des missions au jeune aventurier comme toi afin de les faire progresser et pour qu'il puisse accéder au plus loin niveau qu'il leur est possible. Oh je te vois venir. Tu ne peux pas partir en mission '' seul '', tu as besoin d'intégrer une Familia. Et même ainsi, mieux vaux être accompagnés dans les quêtes passé un certain niveau. Elles offrent des bonus spécifique, par exemple la Familia Hestia t'offre 20 points de vie supplémentaire. A toi de choisir ! </p>";
     let details = "<p class=\"italique\"> ~~ La Familia Hestia offre 20 points de vie supplémentaire, la Familia Hecate offre 20 points de résistance et enfin la Familia Ares offre 20 points de forces supplémentaire ~~ </p>";
     
     let buttons = "<a id=\"btn1\" onclick=\"integrerFamilia(this);\">Familia Hestia</a> " 
@@ -184,7 +184,7 @@ function premierCombat() {
     personnage.pointsVie += 10;
     personnage.pointsResis += 5;
     
-    let stat = "<p> Nom : " + personnage.nom + ", Niveau : " + personnage.niveau + ", Points de vie : " + personnage.pointsVie + ", Force : " + personnage.force + ", Points de résistance : " + personnage.pointsResis + " </p>";
+    let stat = "<p> Votre nom : " + personnage.nom + ", le niveau : " + personnage.niveau + ", les points de vie : " + personnage.pointsVie + ", la force : " + personnage.force + ", les points de résistance : " + personnage.pointsResis + " </p>";
     
     let secondD = "<p>- Bien, maintenant tu dois prendre une quête afin de monter de niveau.. à celui actuel, tu ne peux que prendre pour le moment '' Arrivée dans la Familia '' qui est une quête simple. </p>";
     let seconDee = "<p class=\"italique\">~~ Vous acceptez la quête et vous vous retrouvez dans l'arrière du magasin de forgeron de la Familia Hephaistos. Vous devez attirer un maximum de personne dans la boutique. Cependant, un choix vous a été proprosé : porter la robe rouge (très mignonne avec ce petit serre-tête) afin de présenter une visage plus avenant au public et ainsi réduire le temps de travail, soit ne pas la porter et rallonger le temps de travail. Que choisissez-vous ? ~~</p>";
@@ -254,10 +254,12 @@ function choixChemin(chem) {
     }
 }
 
+
 /******
 *  Ci dessous, toutes les fonctions concernant la partie '' prendre une nouvelle quête '' 
 *  Donc toute la partie droite du schema du scenario donné 
 *****/
+
 
 /* suite de l'histoire si on a choisi de prendre une nouvelle quête */
 function newQuete() {
@@ -317,7 +319,6 @@ function choixDonjon(choo) {
     let choD = choo.textContent;
     
     if (choD == "La sauver") {
-        personnage.aide = "Lili";
         donjon();
     }
     else if (choD == "Ne pas la sauver") {
@@ -328,17 +329,164 @@ function choixDonjon(choo) {
     }
 }
 
+/* pour continuer l'histoire */
 function suiteDonjon() {
-    let blanc8 = "";
-    let 
+    let blanc = "";
+    let phraseIta = "<p class=\"italique\"> ~~ Vous courrez pour la sauver d'une mort certaine. Après avoir bravé le danger des petits monstres, du fait de leur nombre, vous demandez à la jeune fille si elle va bien ~~ </p>";
     
+    let phrase2 = "<p>- Bien merci beaucoup de votre aide. Je ne sais pas comment j'aurai pu m'en sortir... Ils-Ils m'ont bloqués alors que je cherchais un ami.. </p>";
+    
+    let phraseIte = "<p class=\"italique\">~~ S'en suivit une discussion avec Lili, la jeune fille que vous avez sauvé. Elle se propose de vous aider à trouver votre objet, ce que vous acceptez afin de garder un oeil sur elle et pour pouvoir l'amener plus tard à la guilde. ~~</p>";
+    
+    let temps = "<p class=\"italique\">~~ Le temps passe, vous apprenez à connaître Lili, qui vous montre où trouver l'objet recherché. Suite à cela, vous sortez du donjon avec Lili vous accompagnant afin de vous rendre à la guilde, pour récupérer votre récompense ainsi que de poser des questions à une conseillère ~~</p> <p class=\"italique\">~~ Oh vous avez gagné un niveau ! ~~</p>";
+    
+    let stat = "<p> Votre nom : " + personnage.nom + ", le niveau : " + personnage.niveau + ", les points de vie : " + personnage.pointsVie + ", la force : " + personnage.force + ", les points de résistance : " + personnage.pointsResis + " </p>";
+    
+    let temps3 = "<p class=\"italique\">~~ Vous vous avancez jusqu'à un guichet où une conseillère est présente. Ainsi vous lui posez des questions sur la Familia de Lili ~~</p>";
+    
+    let rep = "<p>- Hum.. La Familia Komu est un sujet un peu sensible.. le dieu est passioné par le vin, il ne jure que par lui : c'est le dieu du vin après tout. Cependant il ne traite pas sa Familia comme tout les autres dieux et déesses.. Il propose à ses enfants de ramener le plus de sous afin de goûter à son vin. Ce n'est pas, pour une partie de ces enfants du moins, par choix qu'ils ont intégrés sa Familia.. Il est le seul dieu à accepter des personnes venant de l'extérieur de Shuime. Les autres dieux ne sont concentrés que sur la capitale. </p>";
+    
+    let rep2 = "<p>- Ooh je vois votre air sur votre visage.. Il est possible de changer de Familia oui, cependant il faut que les deux dieux en questions acceptent et que bien sûr la personne concernée par ce changement soit consentante. Mais nous pouvons en faire la demande si vous le souhaitez, Mademoiselle. Toutefois, revenez me voir demain avec votre réponse, après y avoir mûrement réfléchis. </p>";
+    
+    let soir = "<p class=\"italique\">~~ Vous vous retournez et sortez de la Guilde, avec Lili à vos côtés, afin d'aller en discuter au calme ~~</p>";
+    
+    let demain = "<p class=\"italique\">~~ Vous revenez à la Guilde le lendemain matin, Lili vous attendant déjà à l'intérieur. Vous vous dirigez vers la conseillère de la veille, qui vous reconnaît ~~</p>";
+    
+    let demain2 = "<p>- Ah c'est vous ! Bonjour, j'espère que vous y avez bien réfléchis. Ces changements sont assez rare. Toutefois vous avez l'air de vous être mis d'accord sur une possibilité. Puis-je l'entendre ? </p>";
+    let demainBout = "<a id=\"btn1\" onclick=\"choixAmi(this);\">L'integrer dans la Familia</a> "
+                    + "<a id=\"btn2\" onclick=\"choixAmi(this);\">Ne pas l'integrer dans la Familia</a>";
+    
+    lesChoix.innerHTML = blanc;
+    divImage.innerHTML = blanc;
+    histoire.innerHTML = phraseIta;
+    setTimeout(function(){histoire.innerHTML = phrase2;}, 3*1000);
+    setTimeout(function(){histoire.innerHTML += phraseIte;}, 5*1000);
+    setTimeout(function(){histoire.innerHTML = temps;}, 7*1000);
+    setTimeout(function(){histoire.innerHTML = temps; histoire.innerHTML += stat;}, 9*1000);
+    setTimeout(function(){histoire.innerHTML += temps3;}, 13*1000);
+    setTimeout(function(){histoire.innerHTML += rep;}, 15*1000);
+    setTimeout(function(){histoire.innerHTML += rep2; histoire.innerHTML = soir;}, 17*1000);
+    setTimeout(function(){histoire.innerHTML = demain;}, 23*1000);
+    setTimeout(function(){histoire.innerHTML += demain2; lesChoix.innerHTML = demainBout;}, 24*1000);
 }
+
+/* fonction qui regarde le choix realisé */
+function choixAmi(amitie) {
+    let ami = amitie.textContent;
+    
+    if (ami == "L'integrer dans la Familia") {
+        personnage.aide = "Lili";
+        suiteFamilia();
+    }
+    else if (ami == "Ne pas l'integrer dans la Familia") {
+        suiteFamilia()
+    }
+    else {
+        console.log("erreur dans la lecture");
+    }
+}
+
+/* continuation de l'histoire */
+function suiteFamilia() {
+    let blanc = "";
+    
+    let debut = "<p>- Très bien, il en sera fait selon ce que vous aviez voulu. Maintenant plusieurs choix s'offrent à vous. Soit vous pouvez vous balader en ville au gré de vos envies, et vous reviendrez ici quand vous voudrez, soit vous pouvez aller faire une quête. Dans ce cas-ci, vous pouvez soit y aller accompagner par votre nouvelle ami qui va jouer le rôle de supporter, soit y aller sans elle. Cependant, les récompenses seront les mêmes pour chacun. </p>";
+    
+    let buttons = "<a id=\"btn1\" onclick=\"choixFam(this);\">Aller se balader</a> " 
+                + "<a id=\"btn2\" onclick=\"choixFam(this);\">Faire la quête avec elle</a> " 
+                + "<a id=\"btn3\" onclick=\"choixFam(this);\">Faire la quête sans elle</a>";
+    
+    divImage.innerHTML = blanc;
+    lesChoix.innerHTML = blanc;
+    histoire.innerHTML = debut;
+    setTimeout(function(){lesChoix.innerHTML = buttons;}, 2*1000);
+}
+
+/* fonction qui regarde le choix realisé */
+function choixFam(reponse) {
+    let rep = reponse.textContent;
+    
+    if (rep == "Aller se balader") {
+        perdreVille();
+    }
+    else if (rep == "Faire la quête avec elle") {
+        queteAvecElle();
+    }
+    else if (rep == "Faire la quête sans elle") {
+        perdreAmi();
+    }
+    else {
+        console.log("erreur dans la lecture");
+    }
+}
+
+/* la fonction appelé quand on perd après s'etre baladé en ville */
+function perdreVille() {
+    let blanc = "";
+    
+    let phraseFin = "<h2> Aie aie aie, vous avez perdu ! </h2> "
+                    + "<p> Explication : voulant visiter de fond en comble la capitale Shuime, vous avez décidé de prendre une semaine de ''vacances'', une semaine où vous ne prendrez aucune quête. Et chouette la Monstrole, un grand évènement rassemblant les meilleurs combattant de la Familia Ganiya lors de combat contre des grands monstres, était en ville à ce moment là. Vous y avez été fait un tour, admirant les plus grand et rêvant d'avoir la même renommée. </p> "
+                    + "<p> Toutefois, il y a eu un incident : un grand monstre s'est échappé de sa cage. Les gardes ont été dépassés par sa vitesse, vous vous êtes retrouvés devant ce grand monstre. Et malgré l'aide de Lili, vous avez vous aussi été fortement dépassé. Il vous a terrassé. </p>";
+    
+    divImage.innerHTML = blanc;
+    lesChoix.innerHTML = blanc;
+    histoire.innerHTML = phraseFin;
+}
+
+/* fonction quand on prend la quete sans elle */
+function perdreAmi() {
+    let blanc = "";
+    
+    let phraseFin = "<h2> Aie aie aie, vous avez perdu ! </h2> "
+                    + "<p> Explication : vous n'avez pas accepté l'aide que Lili vous offrait. Pourtant la conseillère vous avez dit qu'il valait mieux faire des quêtes en étant accompagné, surtout quand on commence à avoir votre niveau. </p>";
+    
+    divImage.innerHTML = blanc;
+    lesChoix.innerHTML = blanc;
+    histoire.innerHTML = phraseFin;
+}
+
+/* fonction quand on prend la quete avec elle */
+function queteAvecElle() {
+    let blanc = "";
+    
+    let image = "<img class=\"monImage\" src=\"images/mob2.png\"/>";
+    
+    let inter = "<p class=\"italique\">~~ Vous avez pris la quête du Monstre du Lac. Des villageois autour du lac de Serarph ont fait remonté à la Guilde qu'il y aurait un Monstre du lac qui ferait fuir ou mangerait tous les poissons du lac. Votre mission est d'aller voir ce qu'il en est ~~</p>";
+    
+    let inter2 = "<p class=\"italique\">~~ Le lac de Serarph se trouve juste à côté d'un petit village possédant un temple. Ce dernier servait de culte pour la déesse Sidnu, déesse de la pêche. Pour arriver au lac où le Monstre du lac aurait été aperçu, il vous faut passer par le devant de ce temple, qui sert maintenant de donjon pour former les enfants de la Familia Sidnu. ~~</p>";
+    
+    let inter3 = "<p class=\"italique\">~~ En arrivant près de ce temple, vous entendez des cris et des appels aux secours. Vous décidez de vous approchez et voyez un groupe au sol, dnas la zone d'un combat de boss d'étage. Ce sont eux qui crient à l'aide ~~</p>";
+    
+    let appel = "<p>- S'IL VOUS PLAIT ! VENEZ NOUS AIDER ! JE VOUS EN SUPPLIE, IL EST BEAUCOUP TROP FORT POUR NOUS </p>";
+    
+    let appel2 = "";
+    
+    divImage.innerHTML = blanc;
+    histoire.innerHTML = inter;
+    setTimeout(function(){histoire.innerHTML += inter2;}, 3*1000);
+    setTimeout(function(){divImage.innerHTML = image;}, 3*1000);
+    setTimeout(function(){histoire.innerHTML += inter2;}, 6*1000);
+    setTimeout(function(){histoire.innerHTML += inter3; histoire.innerHTML = appel;}, 8*1000);
+    setTimeout(function(){histoire.innerHTML += appel2;}, 3*1000);
+}
+
 
 
 /* la fonction appelé quand on perd contre un mini boss */
 function perdreMiniBoss() {
+    let blanc = "";
     
+    let phraseFin = "<h2> Aie aie aie, vous avez perdu ! </h2> "
+                    + "<p> Explication : vous avez vu une quête forte intéressante et voulant continuer à vous améliorer, en cherchant des défis n'importe où, vous avez accepté de prendre cette fameuse quête : la Quête du Dragon de Glace. Il fallait juste arriver à attraper des cristaux que ce dragon de glace formait. </p> "
+                    + "<p> Toutefois, une fois sur place, vous vous êtes aperçu de la taille et des dégâts de X'rphan The White Wyrn quand il était trop tard pour reculer. Il vous a terrassé. </p>";
+    
+    let image = "<img class=\"monImage\" src=\"images/orphan.png\"/>" ;
+    
+    divImage.innerHTML = image;
+    lesChoix.innerHTML = blanc;
+    histoire.innerHTML = phraseFin;
 }
+
 
 /* fonction du combat du boss qui détermine si l'on a gagné ou pas */
 function combaBoss() {
@@ -360,12 +508,18 @@ function goHome() {
 
 
 
+let bil1 = "<p> </p>";
+let billi = "<p class=\"italique\">~~ ~~</p>";
 
 
-
-
-
-
+<img class=\"monImage\" src=\"images/fondAincrad.jpg\"/>
+let blanc = "";
+    
+    let phraseFin = ;
+    
+    divImage.innerHTML = blanc;
+    lesChoix.innerHTML = blanc;
+    histoire.innerHTML = phraseFin;
 
 
 
