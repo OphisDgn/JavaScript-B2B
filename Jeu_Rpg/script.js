@@ -7,6 +7,8 @@ const nom = document.getElementById("nom");
 const capacite = document.getElementById("capacite");
 const boutonValider = document.getElementById("play");
 // const boutonInfo = document.getElementById("inforPerso");
+
+// pour les textes concernant l'histoire
 const histoire = document.getElementById("textuel");
 
 // pour les choix 
@@ -15,7 +17,6 @@ const lesChoix = document.getElementById("lesBoutons");
 // pour ajouter des images dans la div prévue
 const divImage = document.getElementById("imageAjout");
 
-
 // pour afficher une div après un clic qui été cachée de base
 function AfficherDiv() {
     debut[0].style.display = "none";
@@ -23,8 +24,9 @@ function AfficherDiv() {
 }
 
 
-/* LE JEU EN LUI MEME */
-
+/******
+*  Ci dessous, les fonctions concernant le jeu en lui-même  
+*****/
 
 /* on initialise le personnage */
 let personnage = {
@@ -35,10 +37,10 @@ let personnage = {
     xp: 0,
     niveau: 1,
     familia: "",
+    arme: "",
     ami: "",
     etat: "",
     aide: "",
-    inventaire: [],
 };
 
 /* afin de voir les statistique du personnage
@@ -48,7 +50,6 @@ function afficherInfo() {
     boutonInfo.innerHTML = statistique;
 }
 */
-
 
 /* fonction pour personnaliser le personnage */
 function creerPerso() {
@@ -60,7 +61,6 @@ function creerPerso() {
     
     principale(name);
 }
-
 
 /* la fonction principale qui va appeler les autres */
 function principale (prenom) {
@@ -97,9 +97,6 @@ function principale (prenom) {
     setTimeout(function(){lesChoix.innerHTML += details; lesChoix.style.display = "inline-block"; lesChoix.innerHTML += buttons}, 37*1000);
 }
 
-
-
-
 /* les fonctions d'intégration d'une familia */
 function integrerFamilia(balise) {
    let bal = balise.textContent;
@@ -129,7 +126,6 @@ function integrerFamilia(balise) {
     }
 }
 
-
 /* la suite */
 function suite() {
     /* l'histoire encore */
@@ -149,7 +145,6 @@ function suite() {
     lesChoix.innerHTML = bout;
 }
 
-
 /* fonction pour le choix de l'arme */
 function choixArme (arme) {
     let weapon = arme.textContent;
@@ -157,17 +152,17 @@ function choixArme (arme) {
     console.log(weapon);
     
     if (weapon == "Epee") {
-        personnage.inventaire += ["Epee"];
+        personnage.arme += "Epee";
         personnage.force += 10;
         premierCombat();
     }
     else if (weapon == "Baton Magique") {
-        personnage.inventaire += ["BatonMagique"];
+        personnage.arme += "BatonMagique";
         personnage.force += 10;
         premierCombat();
     }
     else if (weapon == "Epee Magique") {
-        personnage.inventaire += ["EpeeMagique"];
+        personnage.arme += "EpeeMagique";
         personnage.force += 10;
         premierCombat();
     }
@@ -222,7 +217,6 @@ function choixRobe (reponse) {
     }
 }
 
-
 /* fonction qui prend la relève */
 function sweet () {
     let blanc3 = "";
@@ -260,6 +254,11 @@ function choixChemin(chem) {
     }
 }
 
+/******
+*  Ci dessous, toutes les fonctions concernant la partie '' prendre une nouvelle quête '' 
+*  Donc toute la partie droite du schema du scenario donné 
+*****/
+
 /* suite de l'histoire si on a choisi de prendre une nouvelle quête */
 function newQuete() {
     let blancB = "";
@@ -276,7 +275,7 @@ function newQuete() {
     setTimeout(function(){lesChoix.innerHTML = newB;}, 3*1000);
 }
 
-
+/* pour savoir quel choix a été fait */
 function choixCheminBis(chemBis) {
     let cheBis = chemBis.textContent;
     
@@ -295,15 +294,63 @@ function choixCheminBis(chemBis) {
     
 }
 
+/* suite de l'histoire */
 function donjon() {
     let blancD = "";
     
-    let don = "<p class=\"italique\">~~ Vous marchez à la recherche de l'objet qu'il vous faut : une baie des Lailay. Très utile pour  ~~</p>"
+    let don = "<p class=\"italique\">~~ Vous marchez à la recherche de l'objet qu'il vous faut : une baie des Lailay. Très utilisée dans la cuisine mais aussi dans les bains, afin de détendre les muscles ~~</p>"
         + "<p>- Au secouuuuuurs ! </p> "
-        + "<p class=\"italique\">~~ Ce cri venait d'un coin devant vous. ~~</p>";
+        + "<p class=\"italique\">~~ Ce cri venait d'un coin devant vous. Vous y courez et voyez une jeune fille sans défense contre des petits monstres en forme d'araignée ~~</p>";
     
+    let questD = "<a id=\"btn1\" onclick=\"choixDonjon(this);\">La sauver</a> "
+                + "<a id=\"btn2\" onclick=\"choixDonjon(this);\">Ne pas la sauver</a>";
+    
+    divImage.innerHTML = blancD;
+    histoire.innerHTML = don;
+    
+    lesChoix.innerHTML = questD;
     
 }
+
+/* pour savoir quel choix a été fait */
+function choixDonjon(choo) {
+    let choD = choo.textContent;
+    
+    if (choD == "La sauver") {
+        personnage.aide = "Lili";
+        donjon();
+    }
+    else if (choD == "Ne pas la sauver") {
+        alert("Attention, cette partie n'ayant pas encore été faite, vous ne pouviez pas la réaliser. J'en suis navrée.");
+    }
+    else {
+        console.log("erreur dans la lecture");
+    }
+}
+
+function suiteDonjon() {
+    let blanc8 = "";
+    let 
+    
+}
+
+
+/* la fonction appelé quand on perd contre un mini boss */
+function perdreMiniBoss() {
+    
+}
+
+/* fonction du combat du boss qui détermine si l'on a gagné ou pas */
+function combaBoss() {
+    
+}
+
+
+
+/******
+*  Ci dessous, toutes les fonctions concernant la partie '' rentrer chez soi '' 
+*  Donc toute la partie gauche du schema du scenario donné 
+*****/
 
 /* suite de l'histoire si on a choisi de rentrer chez soi */
 function goHome() {
