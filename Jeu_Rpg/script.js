@@ -6,6 +6,7 @@ const menu = document.getElementsByClassName("menuDeux");
 const nom = document.getElementById("nom");
 const capacite = document.getElementById("capacite");
 const boutonValider = document.getElementById("play");
+// const boutonInfo = document.getElementById("inforPerso");
 const histoire = document.getElementById("textuel");
 
 // pour les choix 
@@ -18,7 +19,7 @@ const divImage = document.getElementById("imageAjout");
 // pour afficher une div après un clic qui été cachée de base
 function AfficherDiv() {
     debut[0].style.display = "none";
-    menu[0].style.display = "block";
+    menu[0].style.display = "inline-block";
 }
 
 
@@ -35,8 +36,19 @@ let personnage = {
     niveau: 1,
     familia: "",
     ami: "",
+    etat: "",
+    aide: "",
     inventaire: [],
 };
+
+/* afin de voir les statistique du personnage
+function afficherInfo() {
+    let statistique = "<p> Nom : " + personnage.nom + ", Niveau : " + personnage.niveau + ", Points de vie : " + personnage.pointsVie + ", Force : " + personnage.force + ", Points de résistance : " + personnage.pointsResis + " </p>";
+    
+    boutonInfo.innerHTML = statistique;
+}
+*/
+
 
 /* fonction pour personnaliser le personnage */
 function creerPerso() {
@@ -44,6 +56,7 @@ function creerPerso() {
     personnage.nom = name;
     
     menu[0].style.display = "none";
+    //boutonInfo.style.display = "block";
     
     principale(name);
 }
@@ -53,7 +66,7 @@ function creerPerso() {
 function principale (prenom) {
     
     // les textes de dialogues à afficher et les images
-    let phrase1 = "<p>- Bienvenue " + prenom + ", le monde de Caerdydd t'accueille à bras ouvert ! Nous sommes si heureux de te compter parmi nos potentiels héros, parmi ces hommes qui s'élèveront dans notre monde afin de nous apporter des nouveautés... Oops j'en oublie les bonnes manières, pardonne moi. Je me prénomme Kuyma, je suis la déesse suprême de Caerdydd, sa créatrice. Accompagne moi je te prie, je vais te guider. </p>";
+    let phrase1 = "<p>- Bienvenue " + prenom + ", le monde de Caerdydd t'accueille à bras ouvert ! Nous sommes si heureux de te compter parmi nos potentiels héros, parmi ces personnes qui s'élèveront dans notre monde afin de nous apporter des nouveautés... Oops j'en oublie les bonnes manières, pardonne moi. Je me prénomme Kuyma, je suis la déesse suprême de Caerdydd, sa créatrice. Accompagne moi je te prie, je vais te guider. </p>";
     let interligne1 = "<p class=\"italique\">~~ Vous l'accompagnez et traversez des nuages jusqu'à arriver en vue d'une ville construite singulièrement ~~</p>";
     let image1 = "<img class=\"monImage\" src=\"images/fondAincrad.jpg\"/>";
     
@@ -72,24 +85,16 @@ function principale (prenom) {
                 + "<a id=\"btn3\" onclick=\"integrerFamilia(this);\">Familia Ares</a>";
     
     
-    // les temps d'apparition des ecritures (en seconde ici)
-    let time1 = 5;
-    let time2 = 10;
-    let time3 = 14;
-    let time4 = 17;
-    let time5 = 30;
-    let time6 = 34;
-    let time7 = 37;
     
     // pour afficher les écritures tout doucement et les unes après les autres 
     histoire.innerHTML = phrase1;
-    setTimeout(function(){histoire.innerHTML += interligne1; divImage.innerHTML = image1}, time1*1000);
-    setTimeout(function(){histoire.innerHTML += phrase2;}, time2*1000);
-    setTimeout(function(){histoire.innerHTML += interligne2;}, time3*1000);
-    setTimeout(function(){histoire.innerHTML += phrase3;}, time4*1000);
-    setTimeout(function(){histoire.innerHTML = didas;}, time5*1000);
-    setTimeout(function(){histoire.innerHTML += discours; divImage.innerHTML = image2;}, time6*1000);
-    setTimeout(function(){lesChoix.innerHTML += details; lesChoix.style.display = "inline-block"; lesChoix.innerHTML += buttons}, time7*1000);
+    setTimeout(function(){histoire.innerHTML += interligne1; divImage.innerHTML = image1}, 5*1000);
+    setTimeout(function(){histoire.innerHTML += phrase2;}, 10*1000);
+    setTimeout(function(){histoire.innerHTML += interligne2;}, 14*1000);
+    setTimeout(function(){histoire.innerHTML += phrase3;}, 17*1000);
+    setTimeout(function(){histoire.innerHTML = didas;}, 30*1000);
+    setTimeout(function(){histoire.innerHTML += discours; divImage.innerHTML = image2;}, 34*1000);
+    setTimeout(function(){lesChoix.innerHTML += details; lesChoix.style.display = "inline-block"; lesChoix.innerHTML += buttons}, 37*1000);
 }
 
 
@@ -120,7 +125,7 @@ function integrerFamilia(balise) {
         suite();
     }
     else {
-        console.log("ah bah erreur mais je sais pas pourquoi");
+        console.log("erreur de lecture");
     }
 }
 
@@ -152,17 +157,17 @@ function choixArme (arme) {
     console.log(weapon);
     
     if (weapon == "Epee") {
-        personnage.inventaire += 'epee';
+        personnage.inventaire += ["Epee"];
         personnage.force += 10;
         premierCombat();
     }
     else if (weapon == "Baton Magique") {
-        personnage.inventaire += 'batonMagique';
+        personnage.inventaire += ["BatonMagique"];
         personnage.force += 10;
         premierCombat();
     }
     else if (weapon == "Epee Magique") {
-        personnage.inventaire += 'epeeMagique';
+        personnage.inventaire += ["EpeeMagique"];
         personnage.force += 10;
         premierCombat();
     }
@@ -171,33 +176,139 @@ function choixArme (arme) {
     }
 }
 
+/* suite de l'histoire */
 function premierCombat() {
     let blanc2 = "";
     
-    let first = "<p> Très bien, alors à partir de maintenant tu seras accompagné par " + personnage.ami + ", qui va t'accompagner dans chacun de tes combats. Allons-y pour te montrer un peu les environs. </p>";
-    let firstDid = "<p class=\"italique\">~~ Vous la suivez jusqu'à l'intérieur de la tour, au premier étage du donjon, où vous tombiez sur des Skrulls, des petits monstres. Vous les battez très vite grâce à l'aide de votre compagnon ~~</p> ";
+    let first = "<p>- Très bien, alors à partir de maintenant tu seras accompagné par " + personnage.ami + ", qui va t'accompagner dans chacun de tes combats. Allons-y pour te montrer un peu les environs. </p>";
+    let firstDid = "<p class=\"italique\">~~ Vous la suivez jusqu'à l'intérieur de la tour, au premier étage du donjon, où vous tombiez sur des Skrulls, des petits monstres. Vous les battez très vite grâce à l'aide de votre compagnon ~~</p> <p class=\"italique\">~~ Vous avez gagné un niveau, vous êtes maintenant niveau 2 ! Voyons voir un peu vos statistiques : ~~</p> ";
+    let img2 = "<img class=\"monImage\" src=\"images/mob.png\"/>";
+    
+    // on augmente les statistiques
+    personnage.niveau = 2;
+    personnage.pointsVie += 10;
+    personnage.pointsResis += 5;
+    
+    let stat = "<p> Nom : " + personnage.nom + ", Niveau : " + personnage.niveau + ", Points de vie : " + personnage.pointsVie + ", Force : " + personnage.force + ", Points de résistance : " + personnage.pointsResis + " </p>";
+    
+    let secondD = "<p>- Bien, maintenant tu dois prendre une quête afin de monter de niveau.. à celui actuel, tu ne peux que prendre pour le moment '' Arrivée dans la Familia '' qui est une quête simple. </p>";
+    let seconDee = "<p class=\"italique\">~~ Vous acceptez la quête et vous vous retrouvez dans l'arrière du magasin de forgeron de la Familia Hephaistos. Vous devez attirer un maximum de personne dans la boutique. Cependant, un choix vous a été proprosé : porter la robe rouge (très mignonne avec ce petit serre-tête) afin de présenter une visage plus avenant au public et ainsi réduire le temps de travail, soit ne pas la porter et rallonger le temps de travail. Que choisissez-vous ? ~~</p>";
+    
+    let choixRo = "<a id=\"btn1\" onclick=\"choixRobe(this);\">La porter</a>" 
+                + "<a id=\"btn2\" onclick=\"choixRobe(this);\">Ne pas la porter</a>";
     
     
-    divImage.innerHTML = blanc2;
     lesChoix.innerHTML = blanc2;
     histoire.innerHTML = first;
-    setTimeout(function(){histoire.innerHTML += firstDid;}, 2*1000);
+    setTimeout(function(){histoire.innerHTML += firstDid; divImage.innerHTML = img2;}, 2*1000);
+    setTimeout(function(){histoire.innerHTML += stat;}, 3*1000);
+    setTimeout(function(){histoire.innerHTML += secondD; histoire.innerHTML += seconDee;}, 4*1000);
+    setTimeout(function(){lesChoix.innerHTML = choixRo;}, 5*1000);
+}
+
+/* pour savoir quel choix a été fait */
+function choixRobe (reponse) {
+    let rep = reponse.textContent;
     
+    if (rep == "La porter") {
+        sweet();
+    }
+    else if (rep == "Ne pas la porter") {
+        personnage.etat = "fatigue";
+        sweet();
+    }
+    else {
+        console.log("erreur dans la lecture");
+    }
 }
 
 
 /* fonction qui prend la relève */
 function sweet () {
+    let blanc3 = "";
+    let image5 = "<img class=\"monImage\" src=\"images/salon.jpg\"/>";
+    let inter1 = "<p class=\"italique\">~~ Vous finissez le travail et retournez à la guilde afin d'avoir la récompense ~~</p>"
+                + "<p> - Oh vous êtes là ! Venez on va valider votre quête. </p>" 
+                + "<p class=\"italique\">~~ Vous avez gagné un niveau ainsi qu'un peu de force ~~</p>";
+    personnage.niveau = 3;
+    personnage.force += 5;
     
+    let mad = "<p> - Bien, maintenant vous avez le choix, soit vous continuez les quêtes afin de monter en niveau et de vous entraîner, soit vous pouvez aller vous reposer chez vous. </p>";
+    
+    let statB = "<a id=\"btn1\" onclick=\"choixChemin(this);\">Prendre une nouvelle quête</a>" 
+                + "<a id=\"btn2\" onclick=\"choixChemin(this);\">Rentrer chez soi</a>";
+    
+    lesChoix.innerHTML = blanc3;
+    divImage.innerHTML = image5;
+    histoire.innerHTML = inter1;
+    setTimeout(function(){histoire.innerHTML += mad;}, 3*1000);
+    setTimeout(function(){lesChoix.innerHTML += statB;}, 4*1000);
+}
+
+/* pour savoir quel choix a été fait */
+function choixChemin(chem) {
+    let che = chem.textContent;
+    
+    if (che == "Prendre une nouvelle quête") {
+        newQuete();
+    }
+    else if (che == "Rentrer chez soi") {
+        goHome();
+    }
+    else {
+        console.log("erreur dans la lecture");
+    }
+}
+
+/* suite de l'histoire si on a choisi de prendre une nouvelle quête */
+function newQuete() {
+    let blancB = "";
+    let newQ = "<p> - Hop, j'ai une quête pour vous. Elle s'intitule '' La contre-attaque des Vaches '', vous devrez aller dans le donjon pour la réaliser. Cependant vous pouvez choisir de ne pas la réaliser tout de suite et aller vous promener en dehors de la ville. Faites toutefois attention aux petits monstres qui peuvent venir vous attaquer. </p>";
+    
+    let newB = "<a id=\"btn1\" onclick=\"choixCheminBis(this);\">Aller dans le donjon</a> " 
+                + "<a id=\"btn2\" onclick=\"choixCheminBis(this);\">Aller à l'extérieur de la ville</a>";
+    
+    let image6 = "<img class=\"monImage\" src=\"images/salon.jpg\"/>";
+    
+    lesChoix.innerHTML = blancB;
+    divImage.innerHTML = image6;
+    histoire.innerHTML = newQ;
+    setTimeout(function(){lesChoix.innerHTML = newB;}, 3*1000);
 }
 
 
+function choixCheminBis(chemBis) {
+    let cheBis = chemBis.textContent;
+    
+    if (cheBis == "Aller dans le donjon") {
+        personnage.niveau = 4;
+        personnage.pointsResis += 5;
+        personnage.xp += 30;
+        donjon();
+    }
+    else if (cheBis == "Aller à l'extérieur de la ville") {
+        alert("Attention, cette partie n'ayant pas encore été faite, vous ne pouviez pas la réaliser. J'en suis navrée.");
+    }
+    else {
+        console.log("erreur dans la lecture");
+    }
+    
+}
 
+function donjon() {
+    let blancD = "";
+    
+    let don = "<p class=\"italique\">~~ Vous marchez à la recherche de l'objet qu'il vous faut : une baie des Lailay. Très utile pour  ~~</p>"
+        + "<p>- Au secouuuuuurs ! </p> "
+        + "<p class=\"italique\">~~ Ce cri venait d'un coin devant vous. ~~</p>";
+    
+    
+}
 
-
-
-
-
+/* suite de l'histoire si on a choisi de rentrer chez soi */
+function goHome() {
+    
+}
 
 
 
