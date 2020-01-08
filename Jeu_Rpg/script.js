@@ -529,24 +529,57 @@ function avantFinPartie() {
     
     let introduction = "<p class=\"italique\">~~ Un jour après.. ~~</p>";
     
+    let salon = "<img class=\"monImage\" src=\"images/salon.jpg\"/>";
+    
     let inta =  = "<p class=\"italique\">~~ Vous arrivez juste à l'instant à la Guilde, afin de récupérer les récompenses de votre précédente quête et de voir la prochaine. Lili est avec vous ~~</p>";
     
     let stat = "<p> Votre nom : " + personnage.nom + ", le niveau : " + personnage.niveau + ", les points de vie : " + personnage.pointsVie + ", la force : " + personnage.force + ", les points de résistance : " + personnage.pointsResis + " </p>";
     
     let phrase = "<p>- Alors, vous avez un peu gagné pour cette quête bravo ! </p>"
-                + stat + "<p>- Très bien, voici la nouvelle quête disponible maintenant. </p>";
+                + stat + "<p>- Très bien, voici la nouvelle quête disponible maintenant. Huum... il y a la quête du monstre du lac... hum oui tenez ! </p>";
     
+    let inter = "<p class=\"italique\">~~ Vous avez pris la quête du Monstre du Lac. Des villageois autour du lac de Serarph ont fait remonté à la Guilde qu'il y aurait un Monstre du lac qui ferait fuir ou mangerait tous les poissons du lac. Votre mission est d'aller voir ce qu'il en est ~~</p>";
     
+    let inter2 = "<p class=\"italique\">~~ Le lac de Serarph se trouve juste à côté d'un petit village possédant un temple. Ce dernier servait de culte pour la déesse Sidnu, déesse de la pêche. Pour arriver au lac où le Monstre du lac aurait été aperçu, il vous faut passer par le devant de ce temple, qui sert maintenant de donjon pour former les enfants de la Familia Sidnu. ~~</p>";
     
+    let image = "<img class=\"monImage\" src=\"images/mob2.png\"/>";
     
+    let rencontre = "<p class=\"italique\">~~ Vous arrivez près du lac et vous pouvez voir le corps du Monstre du Lac sortir sur la terre ferme, pour vous accueillir. Plusieurs choix s'offrent à vous ~~</p>";
     
-    setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
-    setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
-    setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
-    setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
+    let chooose = "<a id=\"btn1\" onclick=\"choixCombaBoss();\">Combattre le boss</a> " 
+                + "<a id=\"btn2\" onclick=\"choixParlerBoss();\">Parler avec le boss</a>";
     
-    
+    lesChoix.innerHTML = blanc;
+    divImage.innerHTML = salon;
+    histoire.innerHTML = introduction;
+    setTimeout(function(){histoire.innerHTML += inta;}, 3*1000);
+    setTimeout(function(){histoire.innerHTML += phrase; histoire.innerHTML += inter;}, 9*1000);
+    setTimeout(function(){histoire.innerHTML = inter2;}, 14*1000);
+    setTimeout(function(){histoire.innerHTML += rencontre; divImage.innerHTML = image; lesChoix.innerHTML = chooose;}, 18*1000);
 }
+
+/* choix gagnant de combattre le boss */
+function choixCombaBoss() {
+    let histo = "<h2> Bravo vous avez gagné ! </h2> "
+                    + "<p> Explication : vous avez terrassé le Monstre du Lac et sauvé le village d'à côté car juste avant vous vous étiez entrainé. Vous aviez ainsi gagné assez pour pouvoir le battre. </p> ";
+    
+    let again = "<a id=\"btn1\" onclick=\"refresh(this);\">Recommencer</a>";
+    
+    lesChoix.innerHTML = again;
+    histoire.innerHTML = histo;
+}
+
+/* choix de parler au boss */
+function choixParlerBoss() {
+    let histo = "<h2> Aie aie aie, vous avez perdu ! </h2> "
+                + "<p> Explication : pour pouvoir gagner contre un boss en lui parlant, il aurait fallu que vous parliez avec d'autres personnes que les personnes de la Guilde. </p>";
+    
+    let again = "<a id=\"btn1\" onclick=\"refresh(this);\">Recommencer</a>";
+    
+    lesChoix.innerHTML = again;
+    histoire.innerHTML = histo;
+}
+
 
 /* choix quand on parle avec Welf*/
 function choixEntrainement(entrai) {
