@@ -725,9 +725,6 @@ function goHome() {
     
 }
 
-
-
-
 /* fonction qui refresh la page pour du coup recommencer la partie */
 function refresh(ref) {
     let rf = ref.textContent;
