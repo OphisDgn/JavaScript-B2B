@@ -260,7 +260,6 @@ function choixChemin(chem) {
 *  Donc toute la partie droite du schema du scenario donné 
 *****/
 
-
 /* suite de l'histoire si on a choisi de prendre une nouvelle quête */
 function newQuete() {
     let blancB = "";
@@ -494,10 +493,13 @@ function avantFinQuete (motus) {
     
     let inmer = "<p class=\"italique\">~~ Vous hésitez mais devez tout de même lui donner une réponse ~~</p>";
     
-    
-    
-    let appel2 = "<a id=\"btn1\" onclick=\"choixFam(this);\">Aller chez le forgeron</a> " 
+    let boutno = "<a id=\"btn1\" onclick=\"choixFam(this);\">Aller chez le forgeron</a> " 
                 + "<a id=\"btn2\" onclick=\"choixFam(this);\">S'entraîner</a>";
+    
+    /**********************************************************************************************************************************************************************************/
+    
+    let phrase2 = "<p class=\"italique\">~~ Vous allez vous entrainer au niveau faible du donjon, afin de vous améliorer doucement. Lili vous accompagne toujours ~~</p>";
+    
     
     if (motus == "parler") {
         lesChoix.innerHTML = blanc;
@@ -505,30 +507,73 @@ function avantFinQuete (motus) {
         histoire.innerHTML = intro;
         setTimeout(function(){histoire.innerHTML += intra;}, 6*1000);
         setTimeout(function(){histoire.innerHTML += phrase; histoire.innerHTML += inmer;}, 8*1000);
-        setTimeout(function(){lesChoix.innerHTML = appel2;}, 9*1000);
+        setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
         
     } else if (motus == "pas parler") {
         lesChoix.innerHTML = blanc;
         divImage.innerHTML = blanc;
-        
+        histoire.innerHTML = phrase2;
+        personnage.niveau = 6;
+        personnage.pointsResis += 2;
+        personnage.pointsVie += 2;
+        avantFinPartie();
         
     } else {
           console.log("il y a une erreur");   
     }
-    
-    
-    setTimeout(function(){histoire.innerHTML += inter2;}, 6*1000);
-    setTimeout(function(){histoire.innerHTML += inter3; histoire.innerHTML = appel;}, 8*1000);
-    setTimeout(function(){histoire.innerHTML += appel2;}, 3*1000);
-
 }
-/* choix*/
+
+/* fonction après l'entrainement quand on parle pas a Welf */
+function avantFinPartie() {
+    let blanc = "";
+    
+    let introduction = "<p class=\"italique\">~~ Un jour après.. ~~</p>";
+    
+    let inta =  = "<p class=\"italique\">~~ Vous arrivez juste à l'instant à la Guilde, afin de récupérer les récompenses de votre précédente quête et de voir la prochaine. Lili est avec vous ~~</p>";
+    
+    let stat = "<p> Votre nom : " + personnage.nom + ", le niveau : " + personnage.niveau + ", les points de vie : " + personnage.pointsVie + ", la force : " + personnage.force + ", les points de résistance : " + personnage.pointsResis + " </p>";
+    
+    let phrase = "<p>- Alors, vous avez un peu gagné pour cette quête bravo ! </p>"
+                + stat + "<p>- Très bien, voici la nouvelle quête disponible maintenant. </p>";
+    
+    
+    
+    
+    
+    setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
+    setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
+    setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
+    setTimeout(function(){lesChoix.innerHTML = boutno;}, 9*1000);
+    
+    
+}
+
+/* choix quand on parle avec Welf*/
+function choixEntrainement(entrai) {
+    let entr = entrai.textContent;
+     
+    if (entr == "S'entraîner") {
+        personnage.niveau = 7;
+        apresEntrainement();
+    } else if (entr == "Aller chez le forgeron") {
+        personnage.niveau = 7;
+        personnage.pointsResis += 10;
+        personnage.pointsVie += 10;
+        personnage.force += 10;
+        apresEntrainement();
+    } else {
+        console.log("erreur dans la lecture");
+    }
+}
 
 /* fonction prise de quête */
+function apresEntrainement() {
+    let blanc = "";
+    
+    
+}
 
 
-
-/* fonction après l'entrainement */
 
 /* choix*/
 
@@ -562,8 +607,10 @@ function perdreMiniBoss() {
     
     let image = "<img class=\"monImage\" src=\"images/orphan.png\"/>" ;
     
+    let bouton = "<a id=\"btn1\" onclick=\"refresh(this);\">Recommencer</a>";
+    
     divImage.innerHTML = image;
-    lesChoix.innerHTML = blanc;
+    lesChoix.innerHTML = bouton;
     histoire.innerHTML = phraseFin;
 }
 
@@ -602,7 +649,6 @@ let bil1 = "<p> </p>";
 let billi = "<p class=\"italique\">~~ ~~</p>";
 
 
-<img class=\"monImage\" src=\"images/fondAincrad.jpg\"/>
 let blanc = "";
     
     let phraseFin = ;
