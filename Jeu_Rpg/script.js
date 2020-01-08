@@ -285,19 +285,16 @@ function choixCheminBis(chemBis) {
         personnage.niveau = 4;
         personnage.pointsResis += 5;
         personnage.xp += 30;
-        donjon();
-    }
-    else if (cheBis == "Aller à l'extérieur de la ville") {
+        saveLili();
+    } else if (cheBis == "Aller à l'extérieur de la ville") {
         alert("Attention, cette partie n'ayant pas encore été faite, vous ne pouviez pas la réaliser. J'en suis navrée.");
-    }
-    else {
+    } else {
         console.log("erreur dans la lecture");
     }
-    
 }
 
 /* suite de l'histoire */
-function donjon() {
+function saveLili() {
     let blancD = "";
     
     let don = "<p class=\"italique\">~~ Vous marchez à la recherche de l'objet qu'il vous faut : une baie des Lailay. Très utilisée dans la cuisine mais aussi dans les bains, afin de détendre les muscles ~~</p>"
@@ -408,14 +405,12 @@ function choixFam(reponse) {
     
     if (rep == "Aller se balader") {
         perdreVille();
-    }
-    else if (rep == "Faire la quête avec elle") {
+    } else if (rep == "Faire la quête avec elle") {
         queteAvecElle();
-    }
-    else if (rep == "Faire la quête sans elle") {
+        personnage.niveau = 5;
+    } else if (rep == "Faire la quête sans elle") {
         perdreAmi();
-    }
-    else {
+    } else {
         console.log("erreur dans la lecture");
     }
 }
@@ -428,8 +423,10 @@ function perdreVille() {
                     + "<p> Explication : voulant visiter de fond en comble la capitale Shuime, vous avez décidé de prendre une semaine de ''vacances'', une semaine où vous ne prendrez aucune quête. Et chouette la Monstrole, un grand évènement rassemblant les meilleurs combattant de la Familia Ganiya lors de combat contre des grands monstres, était en ville à ce moment là. Vous y avez été fait un tour, admirant les plus grand et rêvant d'avoir la même renommée. </p> "
                     + "<p> Toutefois, il y a eu un incident : un grand monstre s'est échappé de sa cage. Les gardes ont été dépassés par sa vitesse, vous vous êtes retrouvés devant ce grand monstre. Et malgré l'aide de Lili, vous avez vous aussi été fortement dépassé. Il vous a terrassé. </p>";
     
+    let bouton = "<a id=\"btn1\" onclick=\"refresh(this);\">Recommencer</a> ";
+    
     divImage.innerHTML = blanc;
-    lesChoix.innerHTML = blanc;
+    lesChoix.innerHTML = bouton;
     histoire.innerHTML = phraseFin;
 }
 
@@ -440,8 +437,10 @@ function perdreAmi() {
     let phraseFin = "<h2> Aie aie aie, vous avez perdu ! </h2> "
                     + "<p> Explication : vous n'avez pas accepté l'aide que Lili vous offrait. Pourtant la conseillère vous avez dit qu'il valait mieux faire des quêtes en étant accompagné, surtout quand on commence à avoir votre niveau. </p>";
     
+    let bouton = "<a id=\"btn1\" onclick=\"refresh(this);\">Recommencer</a> ";
+    
     divImage.innerHTML = blanc;
-    lesChoix.innerHTML = blanc;
+    lesChoix.innerHTML = bouton;
     histoire.innerHTML = phraseFin;
 }
 
@@ -453,24 +452,105 @@ function queteAvecElle() {
     
     let inter = "<p class=\"italique\">~~ Vous avez pris la quête du Monstre du Lac. Des villageois autour du lac de Serarph ont fait remonté à la Guilde qu'il y aurait un Monstre du lac qui ferait fuir ou mangerait tous les poissons du lac. Votre mission est d'aller voir ce qu'il en est ~~</p>";
     
+    let mater = "<p class=\"italique\">~~ Cependant avant d'aller voir le lac, vous vous accordez l'après-midi de détente et d'entraînement avec des petits monstres au niveau le plus faible du donjon. Vous croisez sur la route une personne que vous n'avez plus vu depuis votre première quête : le forgeron Welf. ~~</p>";
+    
+    let bouton = "<a id=\"btn1\" onclick=\"choixPapoter(this);\">Aller lui parler</a> " 
+                + "<a id=\"btn2\" onclick=\"choixPapoter(this);\">Ne pas lui parler</a>";
+    
+    
+    divImage.innerHTML = blanc;
+    histoire.innerHTML = inter;
+    setTimeout(function(){histoire.innerHTML += mater;}, 3*1000);
+    setTimeout(function(){divImage.innerHTML = image;}, 3*1000);
+}
+
+/* depend du choix réalisé avant */
+function choixPapoter(papoter) {
+    let papo = papoter.textContent;
+    
+    if (papo == "Aller lui parler") {
+        personnage.aide = "Welf, Lili";
+        let poto = "parler";
+        avantFinQuete(poto);
+    }
+    else if (papo == "Ne pas lui parler") {
+        let poto = "pas parler";
+        avantFinQuete(poto);
+    }
+    else {
+        console.log("erreur dans la lecture");
+    }
+}
+
+/* la suite de l'histoire */
+function avantFinQuete (motus) {
+    let blanc = "";
+    
+    let intro = "<p>- Oh mais c'est toi " + personnage.nom + " ! Comment vas tu ? Et qui est la charmante jeune fille avec toi ? </p>";
+    
+    let intra = "<p class=\"italique\">~~ Vous discutez pendant un moment avec Welf ~~</p>";
+    
+    let phrase = "<p>- Ah mais " + personnage.nom + ", pourquoi ne viendrais-tu pas à la forge pour que tu vois si tu ne trouves pas quelque chose de meilleur que ce que tu as pour le moment ? Tu n'es pas obligé d'accepter maintenant, tu peux venir un autre jours. </p>";
+    
+    let inmer = "<p class=\"italique\">~~ Vous hésitez mais devez tout de même lui donner une réponse ~~</p>";
+    
+    
+    
+    let appel2 = "<a id=\"btn1\" onclick=\"choixFam(this);\">Aller chez le forgeron</a> " 
+                + "<a id=\"btn2\" onclick=\"choixFam(this);\">S'entraîner</a>";
+    
+    if (motus == "parler") {
+        lesChoix.innerHTML = blanc;
+        divImage.innerHTML = blanc;
+        histoire.innerHTML = intro;
+        setTimeout(function(){histoire.innerHTML += intra;}, 6*1000);
+        setTimeout(function(){histoire.innerHTML += phrase; histoire.innerHTML += inmer;}, 8*1000);
+        setTimeout(function(){lesChoix.innerHTML = appel2;}, 9*1000);
+        
+    } else if (motus == "pas parler") {
+        lesChoix.innerHTML = blanc;
+        divImage.innerHTML = blanc;
+        
+        
+    } else {
+          console.log("il y a une erreur");   
+    }
+    
+    
+    setTimeout(function(){histoire.innerHTML += inter2;}, 6*1000);
+    setTimeout(function(){histoire.innerHTML += inter3; histoire.innerHTML = appel;}, 8*1000);
+    setTimeout(function(){histoire.innerHTML += appel2;}, 3*1000);
+
+}
+/* choix*/
+
+/* fonction prise de quête */
+
+
+
+/* fonction après l'entrainement */
+
+/* choix*/
+
+/* avant la toute fin de l'histoire de ce cote ci */
+function avantFin() {
+    let blanc = "";
+    
+    let inter = "<p class=\"italique\">~~ Vous avez pris la quête du Monstre du Lac. Des villageois autour du lac de Serarph ont fait remonté à la Guilde qu'il y aurait un Monstre du lac qui ferait fuir ou mangerait tous les poissons du lac. Votre mission est d'aller voir ce qu'il en est ~~</p>";
+    
     let inter2 = "<p class=\"italique\">~~ Le lac de Serarph se trouve juste à côté d'un petit village possédant un temple. Ce dernier servait de culte pour la déesse Sidnu, déesse de la pêche. Pour arriver au lac où le Monstre du lac aurait été aperçu, il vous faut passer par le devant de ce temple, qui sert maintenant de donjon pour former les enfants de la Familia Sidnu. ~~</p>";
     
     let inter3 = "<p class=\"italique\">~~ En arrivant près de ce temple, vous entendez des cris et des appels aux secours. Vous décidez de vous approchez et voyez un groupe au sol, dnas la zone d'un combat de boss d'étage. Ce sont eux qui crient à l'aide ~~</p>";
     
     let appel = "<p>- S'IL VOUS PLAIT ! VENEZ NOUS AIDER ! JE VOUS EN SUPPLIE, IL EST BEAUCOUP TROP FORT POUR NOUS </p>";
     
-    let appel2 = "";
-    
-    divImage.innerHTML = blanc;
-    histoire.innerHTML = inter;
-    setTimeout(function(){histoire.innerHTML += inter2;}, 3*1000);
-    setTimeout(function(){divImage.innerHTML = image;}, 3*1000);
-    setTimeout(function(){histoire.innerHTML += inter2;}, 6*1000);
-    setTimeout(function(){histoire.innerHTML += inter3; histoire.innerHTML = appel;}, 8*1000);
-    setTimeout(function(){histoire.innerHTML += appel2;}, 3*1000);
 }
 
 
+/* fonction du combat du boss qui détermine si l'on a gagné ou pas */
+function combaBoss() {
+    
+}
 
 /* la fonction appelé quand on perd contre un mini boss */
 function perdreMiniBoss() {
@@ -488,10 +568,7 @@ function perdreMiniBoss() {
 }
 
 
-/* fonction du combat du boss qui détermine si l'on a gagné ou pas */
-function combaBoss() {
-    
-}
+
 
 
 
@@ -506,6 +583,19 @@ function goHome() {
 }
 
 
+
+
+/* fonction qui refresh la page pour du coup recommencer la partie */
+function refresh(ref) {
+    let rf = ref.textContent;
+    
+    if (rf == "Recommencer") {
+        location.reload();
+    }
+    else {
+        console.log("erreur dans la lecture");
+    }
+}
 
 
 let bil1 = "<p> </p>";
@@ -523,3 +613,4 @@ let blanc = "";
 
 
 
+    let image = "<img class=\"monImage\" src=\"images/mob2.png\"/>";
