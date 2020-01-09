@@ -315,7 +315,7 @@ function choixDonjon(choo) {
     let choD = choo.textContent;
     
     if (choD == "La sauver") {
-        donjon();
+        suiteDonjon();
     }
     else if (choD == "Ne pas la sauver") {
         alert("Attention, cette partie n'ayant pas encore été faite, vous ne pouviez pas la réaliser. J'en suis navrée.");
