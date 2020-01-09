@@ -713,8 +713,6 @@ function retourGuilde() {
     setTimeout(function(){histoire.innerHTML = phraseFin; lesChoix.innerHTML = bouton;}, 6*1000);
 }
 
-
-
 /******
 *  Ci dessous, toutes les fonctions concernant la partie '' rentrer chez soi '' 
 *  Donc toute la partie gauche du schema du scenario donné 
